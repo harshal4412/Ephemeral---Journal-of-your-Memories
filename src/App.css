@@ -192,16 +192,18 @@ body.dark-mode {
   z-index: 10;
   text-align: center;
   pointer-events: none;
+  width: 90%; /* Keeps text within bounds */
 }
 
 .brand-layer h1 {
   font-weight: 900;
-  font-size: clamp(3rem, 10vw, 6rem);
+  font-size: clamp(2.5rem, 10vw, 6rem); /* Reduced minimum for mobile */
   letter-spacing: 0.3em;
-  padding-left: 0.3em;
+  padding-left: 0.3em; /* Essential for centering with letter-spacing */
   color: white;
   text-shadow: 0 15px 45px rgba(0,0,0,0.15);
   margin: 0;
+  white-space: nowrap; /* Prevents word break if possible */
 }
 
 .brand-layer p {
@@ -535,6 +537,13 @@ textarea[readonly] {
   .entry-modal { padding: 60px 30px; border-radius: 40px; }
   .modal-note { font-size: 1.2rem; }
   .auth-glass-card { padding: 40px 25px; border-radius: 35px; }
+
+  /* FIXING OVERFLOW CUTOUTS ON MOBILE */
+  .brand-layer h1 {
+    font-size: 2rem !important;
+    letter-spacing: 0.15em !important;
+    padding-left: 0.15em !important;
+  }
 }
 
 /* 10. AUTH & ACTION STYLES */
@@ -918,38 +927,29 @@ textarea[readonly] {
 
 .peace-text {
   font-weight: 900;
-  font-size: clamp(4rem, 15vw, 10rem); /* Scales beautifully with screen size */
+  font-size: clamp(2.5rem, 15vw, 10rem); /* Optimized min-size */
   color: var(--text);
-  letter-spacing: 1.2em; /* This creates the centered, wide look */
-  padding-left: 1.2em; /* Offsets the letter spacing to keep it perfectly centered */
+  letter-spacing: 0.8em; 
+  text-indent: 0.8em; 
   margin: 0;
-  opacity: 0.1; /* Keeps it subtle and artistic */
+  opacity: 0.1; 
   text-transform: uppercase;
   pointer-events: none;
   transition: opacity 0.5s ease;
+  width: 100%;
+  text-align: center;
 }
 
-/* Subtle hover effect for the footer */
 .app-footer:hover .peace-text {
   opacity: 0.2;
 }
 
+/* Final Specific Mobile Overrides for Peace */
 @media (max-width: 768px) {
   .peace-text {
-    font-weight: 900;
-    font-size: clamp(4rem, 12vw, 10rem); 
-    color: var(--text);
-    
-    /* Centering Logic */
-    text-align: center;
-    letter-spacing: 0.8em; 
-    text-indent: 0.8em; /* This offsets the extra space after the last 'E' */
-    
-    margin: 0;
-    opacity: 0.1; 
-    text-transform: uppercase;
-    pointer-events: none;
-    width: 100%;
-    display: block;
+    font-size: 2.2rem !important; /* Smaller size for mobile */
+    letter-spacing: 0.3em !important;
+    text-indent: 0.3em !important;
+    opacity: 0.15; 
   }
 }
