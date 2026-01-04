@@ -394,7 +394,7 @@ textarea[readonly] {
 /* Transform Weekdays to M T W T F S S */
 .react-calendar__month-view__weekdays__weekday abbr {
   text-decoration: none !important;
-  font-size: 0; /* Hide full text */
+  font-size: 0.9rem; /* Hide full text */
 }
 
 .react-calendar__month-view__weekdays__weekday abbr::first-letter {
