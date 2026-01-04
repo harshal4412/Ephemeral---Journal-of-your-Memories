@@ -302,6 +302,70 @@ textarea[readonly] {
   opacity: 0.4;
 }
 
+/* NEW: Image Upload Container in Writer Section */
+.image-upload-section {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.image-preview-container {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.image-upload-slot {
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  background: var(--btn-hover);
+  border: 2px dashed var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.image-upload-slot:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: var(--text);
+}
+
+.image-upload-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-upload-slot span {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.5;
+  margin-top: 8px;
+}
+
+.remove-img-badge {
+  position: absolute;
+  top: 5px; right: 5px;
+  background: var(--red);
+  color: white;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 2;
+}
+
 .save-button {
   align-self: flex-end;
   background: var(--text);
@@ -472,6 +536,8 @@ textarea[readonly] {
   position: relative;
   box-shadow: 0 40px 100px rgba(0,0,0,0.3);
   text-align: left;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-accent {
@@ -514,6 +580,28 @@ textarea[readonly] {
   letter-spacing: -3px;
   margin-bottom: 30px;
   line-height: 1;
+}
+
+/* NEW: Image Gallery in View Modal */
+.modal-image-gallery {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.modal-image-gallery img {
+  width: 100%;
+  flex: 1;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 25px;
+  border: 1px solid var(--border-subtle);
+  transition: transform 0.3s ease;
+}
+
+.modal-image-gallery img:hover {
+  transform: scale(1.02);
 }
 
 .modal-divider {
@@ -566,6 +654,10 @@ textarea[readonly] {
   .entry-modal { padding: 60px 30px; border-radius: 40px; }
   .modal-note { font-size: 1.2rem; }
   .auth-glass-card { padding: 40px 25px; border-radius: 35px; }
+
+  /* New Feature Mobile Adjustments */
+  .modal-image-gallery { flex-direction: column; }
+  .image-upload-slot { width: 100px; height: 100px; }
 
   /* FIXING OVERFLOW CUTOUTS ON MOBILE */
   .brand-layer { padding: 20px 30px; border-radius: 25px; }
