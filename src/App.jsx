@@ -119,8 +119,18 @@ export default function Ephemeral() {
   };
 
   const saveEntry = async () => {
-    if (!user) { setShowAuthModal(true); return; }
-    if (!selectedMood) return;
+    console.log("DEBUG: Archive button clicked");
+
+    if (!user) {
+      console.log("DEBUG: No user session found");
+      setShowAuthModal(true);
+      return;
+    }
+    if (!selectedMood) {
+      console.log("DEBUG: No mood selected - blocking save");
+      alert("Please select a mood before archiving!");
+      return;
+    }
 
     const entryData = {
       user_id: user.id,
@@ -130,11 +140,14 @@ export default function Ephemeral() {
       images: images // NEW: Save images array
     };
 
+    console.log("DEBUG: Attempting Supabase Upsert", entryData);
+
     const { error } = await supabase
       .from('entries')
       .upsert(entryData, { onConflict: 'user_id, date' });
 
     if (!error) {
+      console.log("DEBUG: Save Successful");
       setIsSaved(true);
       fetchEntries();
       setTimeout(() => setIsSaved(false), 2000);
@@ -142,7 +155,8 @@ export default function Ephemeral() {
         document.getElementById('history')?.scrollIntoView({ behavior: 'smooth' });
       }, 800);
     } else {
-      setAuthError("Failed to save. Try again.");
+      console.error("DEBUG: Supabase Error Details:", error);
+      setAuthError(`Save Error: ${error.message}`);
     }
   };
 
@@ -199,6 +213,7 @@ export default function Ephemeral() {
   };
 
   const handleMoodClick = (key) => {
+    console.log(`DEBUG: Mood clicked: ${key}`);
     if (!user) setShowAuthModal(true);
     else {
       setSelectedMood(key);
