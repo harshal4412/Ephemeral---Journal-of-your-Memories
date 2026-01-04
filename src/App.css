@@ -944,7 +944,971 @@ textarea[readonly] {
   opacity: 0.2;
 }
 
+/* Final Specific Mobile Overrides for Peace */@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
+/* 1. THE PREMIUM MESH & CORE VARIABLES */
+:root {
+  --text: #1e272e;
+  --green: #2ecc71;
+  --yellow: #f1c40f;
+  --orange: #e67e22;
+  --red: #e74c3c;
+  --glass: rgba(255, 255, 255, 0.75);
+  
+  /* Navigation & Theme Defaults */
+  --nav-bg: rgba(255, 255, 255, 0.4);
+  --btn-hover: rgba(0, 0, 0, 0.05);
+  --modal-bg: #ffffff;
+  --border-subtle: rgba(255, 255, 255, 0.4);
+}
+
+/* DARK MODE VARIABLE OVERRIDES */
+.dark-theme {
+  --text: #ffffff;
+  --glass: rgba(20, 20, 30, 0.7);
+  --nav-bg: rgba(0, 0, 0, 0.3);
+  --btn-hover: rgba(255, 255, 255, 0.1);
+  --modal-bg: #1a1a2e;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+}
+
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
+  transition: background 0.8s ease;
+  
+  /* FIXED LIGHT MESH GRADIENT */
+  background: linear-gradient(
+    135deg, 
+    #ffafbd 0%, 
+    #c299ff 45%, 
+    #8e9eff 100%
+  );
+  background-attachment: fixed;
+}
+
+/* COSMIC DARK BACKGROUND */
+body.dark-mode {
+  background: linear-gradient(
+    135deg, 
+    #0f0c29 0%, 
+    #302b63 45%, 
+    #24243e 100%
+  ) !important;
+  background-attachment: fixed !important;
+}
+
+/* 2. TOP NAVIGATION (Links & Toggle) */
+.top-nav {
+  position: fixed;
+  top: 30px;
+  right: 40px;
+  z-index: 2000;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.nav-btn {
+  text-decoration: none;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  background: var(--btn-hover);
+}
+
+.theme-toggle {
+  background: var(--text);
+  color: var(--modal-bg);
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* 3. MAIN CONTAINER */
+.app-container {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  transition: color 0.5s ease;
+}
+
+/* 4. HERO SECTION (QUADRANTS) */
+.hero-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.main-grid {
+  position: absolute;
+  top: 0; left: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.mood-card {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  background-size: cover; 
+  background-position: center;
+}
+
+.mood-card:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+  z-index: 5;
+}
+
+.mood-label { 
+  font-weight: 900; 
+  font-size: 2rem; 
+  text-transform: uppercase; 
+  letter-spacing: 3px; 
+}
+
+.mood-desc { 
+  font-weight: 400; 
+  opacity: 0.8; 
+  font-size: 1rem; 
+  margin-top: 10px; 
+}
+
+.brand-layer {
+  position: absolute;
+  z-index: 10;
+  text-align: center;
+  pointer-events: none;
+  width: auto;
+  padding: 40px 60px;
+  background: rgba(0, 0, 0, 0.1); /* Subtle premium dark veil */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.brand-layer h1 {
+  font-weight: 900;
+  font-size: clamp(2.5rem, 8vw, 6rem); 
+  letter-spacing: 0.5em; /* Increased for premium editorial feel */
+  text-indent: 0.5em; /* Perfectly centers wide letter-spacing */
+  color: #ffffff;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.4); /* Stronger shadow for depth */
+  margin: 0;
+  white-space: nowrap;
+}
+
+.brand-layer p {
+  text-transform: uppercase;
+  letter-spacing: 0.8em;
+  text-indent: 0.8em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  margin-top: 15px;
+}
+
+.bounce-wrapper {
+  position: absolute;
+  bottom: 50px;
+  z-index: 15;
+  color: white;
+}
+
+/* 5. THE EDITORIAL WRITER */
+.writer-section {
+  min-height: 110vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+}
+
+.writing-card {
+  width: 94vw;
+  max-width: 1500px;
+  min-height: 80vh;
+  padding: 120px 80px;
+  background: var(--glass);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 60px;
+  display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+  box-shadow: 0 50px 120px rgba(0,0,0,0.08);
+}
+
+.card-top {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+  color: var(--text);
+  opacity: 0.4;
+  font-weight: 900;
+  letter-spacing: 0.4em;
+  font-size: 0.8rem;
+}
+
+.writing-card h2 {
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: 1;
+  color: var(--text);
+  letter-spacing: -3px;
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  flex-grow: 1;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 50px 0;
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  line-height: 1.5;
+  font-family: inherit;
+  color: var(--text);
+  resize: none;
+  border-left: 6px solid rgba(128,128,128,0.1);
+  padding-left: 50px;
+  transition: all 0.3s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-left-color: var(--text);
+}
+
+textarea[readonly] {
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+.save-button {
+  align-self: flex-end;
+  background: var(--text);
+  color: var(--modal-bg);
+  padding: 28px 100px;
+  border-radius: 24px;
+  border: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.save-button:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+.save-button.saved {
+  background: var(--green) !important;
+  color: white !important;
+}
+
+/* 6. THE HEAT-MAP CALENDAR */
+.history-section {
+  padding: 100px 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.calendar-wrapper {
+  width: 94vw;
+  max-width: 1500px;
+  background: var(--glass);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-radius: 60px;
+  padding: 80px 40px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 50px 100px rgba(0,0,0,0.05);
+}
+
+.calendar-header {
+  margin-bottom: 60px;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.calendar-header h3 {
+  font-weight: 900;
+  font-size: 3.5rem;
+  letter-spacing: -2px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.calendar-header p {
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--text);
+  opacity: 0.4;
+}
+
+/* REACT CALENDAR MASTERCLASS OVERRIDES */
+.react-calendar {
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  font-family: inherit !important;
+}
+
+.react-calendar__month-view__weekdays {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  padding-bottom: 20px;
+  color: var(--text);
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none !important;
+}
+
+.react-calendar__tile {
+  height: clamp(100px, 15vh, 200px) !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding: 20px !important;
+  font-weight: 900;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border: 4px solid transparent !important;
+  background-clip: padding-box !important;
+  color: var(--text);
+}
+
+.react-calendar__tile:enabled:hover {
+  background-color: var(--btn-hover) !important;
+  transform: scale(0.98);
+}
+
+.react-calendar__tile--now {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 4px solid var(--text) !important;
+}
+
+.react-calendar__navigation {
+  margin-bottom: 40px !important;
+  height: 80px;
+}
+
+.react-calendar__navigation button {
+  font-size: 1.5rem !important;
+  font-weight: 900 !important;
+  color: var(--text) !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* 7. MOOD FLOODING CLASSES */
+.tile-blast { background-color: var(--green) !important; color: white !important; }
+.tile-fun { background-color: var(--yellow) !important; color: white !important; }
+.tile-better { background-color: var(--orange) !important; color: white !important; }
+.tile-tomorrow { background-color: var(--red) !important; color: white !important; }
+
+/* 8. DETAIL OVERLAY & MODAL */
+.entry-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+  padding: 20px;
+}
+
+.entry-modal {
+  background: var(--modal-bg);
+  color: var(--text);
+  width: 100%;
+  max-width: 800px;
+  padding: 80px;
+  border-radius: 60px;
+  position: relative;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.3);
+  text-align: left;
+}
+
+.modal-accent {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 8px;
+  border-radius: 0 0 15px 15px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 35px; right: 40px;
+  background: none;
+  border: none;
+  font-size: 2.8rem;
+  font-weight: 300;
+  cursor: pointer;
+  color: var(--text);
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.close-modal:hover { opacity: 1; }
+
+.entry-modal span {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.8rem;
+  opacity: 0.4;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.entry-modal h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -3px;
+  margin-bottom: 30px;
+  line-height: 1;
+}
+
+.modal-divider {
+  width: 60px;
+  height: 3px;
+  background: var(--btn-hover);
+  margin-bottom: 40px;
+}
+
+.modal-note {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: var(--text);
+  font-weight: 400;
+  white-space: pre-wrap;
+}
+
+/* 9. RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .writing-card { padding: 80px 40px; width: 96vw; }
+}
+
+@media (max-width: 768px) {
+  .top-nav { top: 20px; right: 20px; }
+  .nav-btn span, .user-name { display: none; }
+  
+  .main-grid { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); }
+  .writing-card { padding: 60px 25px; border-radius: 40px; }
+  .writing-card h2 { font-size: 2.5rem; }
+  textarea { padding-left: 25px; font-size: 1.2rem; }
+  .save-button { width: 100%; justify-content: center; padding: 25px; }
+  
+  .react-calendar__tile { height: 120px !important; }
+  .calendar-header h3 { font-size: 2.2rem; }
+  
+  .entry-modal { padding: 60px 30px; border-radius: 40px; }
+  .modal-note { font-size: 1.2rem; }
+  .auth-glass-card { padding: 40px 25px; border-radius: 35px; }
+
+  /* FIXING OVERFLOW CUTOUTS ON MOBILE */
+  .brand-layer { padding: 20px 30px; border-radius: 25px; }
+  .brand-layer h1 {
+    font-size: 1.6rem !important;
+    letter-spacing: 0.2em !important;
+    text-indent: 0.2em !important;
+  }
+  .brand-layer p { letter-spacing: 0.4em; text-indent: 0.4em; }
+}
+
+/* 10. AUTH & ACTION STYLES */
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid var(--btn-hover);
+  width: 100%;
+}
+
+.action-btn {
+  padding: 15px 30px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn.edit {
+  background: var(--text);
+  color: var(--modal-bg);
+}
+
+.action-btn.delete {
+  background: transparent;
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+.action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.action-btn.delete:hover {
+  background: var(--red);
+  color: white;
+}
+
+.confirm-delete-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 25px;
+  background: rgba(231, 76, 60, 0.05);
+  border-radius: 24px;
+  border: 1px solid rgba(231, 76, 60, 0.2);
+}
+
+.confirm-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.confirm-header p {
+  margin: 0;
+  color: var(--red);
+  font-weight: 900;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  opacity: 1;
+}
+
+.confirm-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.confirm-btn {
+  flex: 1;
+  padding: 18px;
+  border-radius: 14px;
+  border: none;
+  font-family: inherit;
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirm-btn.yes {
+  background: var(--red);
+  color: white;
+}
+
+.confirm-btn.no {
+  background: var(--text);
+  color: var(--modal-bg);
+}
+
+.confirm-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.button-group {
+  display: flex;
+  gap: 20px;
+  align-self: flex-end;
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.reset-button {
+  background: transparent;
+  color: var(--text);
+  padding: 28px 40px;
+  border-radius: 24px;
+  border: 2px solid var(--btn-hover);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.reset-button:hover {
+  opacity: 1;
+  border-color: var(--red);
+  color: var(--red);
+  background: rgba(231, 76, 60, 0.05);
+}
+
+/* HERO IMAGE OVERLAYS */
+.mood-card[style*="background-color: rgb(46, 204, 113)"] { 
+  background-image: linear-gradient(rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)), 
+  url('/assets/blast.gif'); 
+}
+.mood-card[style*="background-color: rgb(241, 196, 15)"] { 
+  background-image: linear-gradient(rgba(241, 196, 15, 0.7), rgba(241, 196, 15, 0.7)), 
+  url('/assets/fun.gif'); 
+}
+.mood-card[style*="background-color: rgb(230, 126, 34)"] { 
+  background-image: linear-gradient(rgba(230, 126, 34, 0.7), rgba(230, 126, 34, 0.7)), 
+  url('/assets/better.gif'); 
+}
+.mood-card[style*="background-color: rgb(231, 76, 60)"] { 
+  background-image: linear-gradient(rgba(231, 76, 60, 0.7), rgba(231, 76, 60, 0.7)), 
+  url('/assets/tomorrow.gif'); 
+}
+
+/* 11. PREMIUM AUTH SYSTEM STYLES */
+.auth-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ffafbd 0%, #c299ff 45%, #8e9eff 100%);
+  background-attachment: fixed;
+}
+
+.auth-glass-card {
+  background: var(--modal-bg);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid var(--border-subtle);
+  padding: 60px;
+  border-radius: 50px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.3);
+  text-align: center;
+  position: relative;
+}
+
+.auth-logo {
+  background: var(--text);
+  color: var(--modal-bg);
+  margin: 0 auto 30px;
+  border-radius: 20px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 0.8rem;
+  letter-spacing: 0.4em;
+  padding: 0 25px;
+  width: fit-content;
+}
+
+.auth-header h1 {
+  font-weight: 900;
+  font-size: 2.2rem;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.auth-header p {
+  font-size: 0.9rem;
+  opacity: 0.6;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-group svg {
+  position: absolute;
+  left: 20px;
+  opacity: 0.4;
+  color: var(--text);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 22px 22px 22px 55px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background: var(--btn-hover);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  background: var(--modal-bg);
+  border-color: var(--text);
+}
+
+.auth-main-btn {
+  background: var(--text);
+  color: var(--modal-bg);
+  padding: 22px;
+  border-radius: 20px;
+  border: none;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.auth-main-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.auth-error-msg {
+  color: var(--red);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.auth-footer button {
+  background: none;
+  border: none;
+  margin-top: 30px;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  opacity: 0.4;
+  cursor: pointer;
+  color: var(--text);
+  transition: opacity 0.3s;
+}
+
+.auth-footer button:hover { opacity: 1; }
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 15px;
+  border-right: 1px solid var(--border-subtle);
+}
+
+.user-initial {
+  width: 32px;
+  height: 32px;
+  background: var(--text);
+  color: var(--modal-bg);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.user-name {
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.logout-btn {
+  color: var(--red) !important;
+}
+
+/* 12. CLOUD SYNC ENHANCEMENTS (New) */
+.save-button svg {
+  transition: transform 0.3s ease;
+}
+
+.save-button:active svg {
+  transform: rotate(20deg) scale(1.2);
+}
+
+.active-selection {
+  border: 10px solid white !important;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);
+}
+
+/* MOBILE ADJUSTMENTS FOR ADDITIONS */
+@media (max-width: 768px) {
+  .modal-actions { flex-direction: column; }
+  .action-btn { width: 100%; justify-content: center; }
+  .confirm-buttons { flex-direction: column; }
+  .button-group { flex-direction: column-reverse; }
+  .reset-button { width: 100%; justify-content: center; padding: 22px; }
+  .auth-glass-card { padding: 40px 25px; }
+}
+
+/* 13. FOOTER STYLES */
+.app-footer {
+  width: 100vw;
+  padding: 100px 0 60px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.made-with-love {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text);
+  opacity: 0.6;
+  letter-spacing: 1px;
+  font-style: italic;
+}
+
+.peace-text {
+  font-weight: 900;
+  font-size: clamp(2.5rem, 15vw, 10rem); 
+  color: var(--text);
+  letter-spacing: 0.8em; 
+  text-indent: 0.8em; 
+  margin: 0;
+  opacity: 0.1; 
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.app-footer:hover .peace-text {
+  opacity: 0.2;
+}
+
 /* Final Specific Mobile Overrides for Peace */
+@media (max-width: 768px) {
+  .peace-text {
+    font-size: 2.2rem !important; 
+    letter-spacing: 0.3em !important;
+    text-indent: 0.3em !important;
+    opacity: 0.15; 
+  }
+}
 @media (max-width: 768px) {
   .peace-text {
     font-size: 2.2rem !important; /* Smaller size for mobile */
