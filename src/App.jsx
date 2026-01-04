@@ -327,7 +327,7 @@ export default function Ephemeral() {
             >
               <div className="calendar-header">
                 <h3>TIMELINE</h3>
-                <p>Your emotional landscape synced with Supabase</p>
+                <p>Your emotional landscape synced</p>
               </div>
               
               <Calendar 
