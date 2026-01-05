@@ -59,14 +59,21 @@ export default function Ephemeral() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         setUser(session.user);
-        fetchEntries();
+        fetchEntries(session.user.id);
       }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      if (session) fetchEntries();
-      else setEntries({});
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      if (currentUser) {
+        fetchEntries(currentUser.id);
+      } else {
+        setEntries({});
+        setNote('');
+        setImages([]);
+        setSelectedMood(null);
+      }
     });
 
     return () => subscription.unsubscribe();
@@ -109,13 +116,23 @@ export default function Ephemeral() {
   };
 
   // --- SUPABASE DATA ACTIONS ---
-  const fetchEntries = async () => {
-    const { data, error } = await supabase.from('entries').select('*');
+  const fetchEntries = async (userId) => {
+    const targetId = userId || user?.id;
+    if (!targetId) return;
+
+    console.log("DEBUG: Fetching entries only for user:", targetId);
+    
+    const { data, error } = await supabase
+      .from('entries')
+      .select('*')
+      .eq('user_id', targetId); // CRITICAL: Filter by logged in user ID
+
     if (data) {
       const formattedEntries = {};
       data.forEach(item => { formattedEntries[item.date] = item; });
       setEntries(formattedEntries);
     }
+    if (error) console.error("Fetch error:", error);
   };
 
   const saveEntry = async () => {
@@ -149,7 +166,7 @@ export default function Ephemeral() {
     if (!error) {
       console.log("DEBUG: Save Successful");
       setIsSaved(true);
-      fetchEntries();
+      fetchEntries(user.id);
       setTimeout(() => setIsSaved(false), 2000);
       setTimeout(() => {
         document.getElementById('history')?.scrollIntoView({ behavior: 'smooth' });
