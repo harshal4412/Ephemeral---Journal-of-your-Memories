@@ -14,6 +14,7 @@
   --btn-hover: rgba(0, 0, 0, 0.05);
   --modal-bg: #ffffff;
   --border-subtle: rgba(255, 255, 255, 0.4);
+  --tape-color: rgba(255, 255, 255, 0.5);
 }
 
 /* DARK MODE VARIABLE OVERRIDES */
@@ -24,6 +25,7 @@
   --btn-hover: rgba(255, 255, 255, 0.1);
   --modal-bg: #1a1a2e;
   --border-subtle: rgba(255, 255, 255, 0.1);
+  --tape-color: rgba(0, 0, 0, 0.3);
 }
 
 * { 
@@ -302,69 +304,96 @@ textarea[readonly] {
   opacity: 0.4;
 }
 
-/* NEW: Image Upload Container in Writer Section */
+/* SCRAPBOOK IMAGE UPLOAD SECTION */
 .image-upload-section {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
 }
 
 .image-preview-container {
   display: flex;
-  gap: 15px;
+  gap: 30px;
   flex-wrap: wrap;
+  padding: 20px 0;
 }
 
+/* Polaroid Scrapbook Style for Upload Slots */
 .image-upload-slot {
-  width: 120px;
-  height: 120px;
-  border-radius: 20px;
-  background: var(--btn-hover);
-  border: 2px dashed var(--border-subtle);
+  width: 160px;
+  height: 190px;
+  padding: 12px 12px 40px 12px; /* Polaroid bottom heavy look */
+  background: white;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 5px 10px 30px rgba(0,0,0,0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  overflow: hidden;
   position: relative;
+  transition: all 0.4s ease;
+  overflow: visible; /* Show the tape and remove badge */
 }
 
+.image-upload-slot:nth-child(odd) { transform: rotate(-3deg); }
+.image-upload-slot:nth-child(even) { transform: rotate(2deg); }
+
 .image-upload-slot:hover {
-  background: rgba(255,255,255,0.2);
-  border-color: var(--text);
+  transform: scale(1.05) rotate(0deg);
+  z-index: 10;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* The Washi Tape effect */
+.image-upload-slot::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 25px;
+  background: var(--tape-color);
+  backdrop-filter: blur(2px);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  z-index: 2;
 }
 
 .image-upload-slot img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: sepia(0.1) contrast(1.1); /* Subtle vintage filter */
 }
 
 .image-upload-slot span {
   font-size: 0.6rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
-  opacity: 0.5;
-  margin-top: 8px;
+  opacity: 0.3;
+  margin-top: 15px;
+  color: black;
 }
 
 .remove-img-badge {
   position: absolute;
-  top: 5px; right: 5px;
+  top: -10px; right: -10px;
   background: var(--red);
   color: white;
-  width: 20px; height: 20px;
+  width: 28px; height: 28px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
   cursor: pointer;
-  z-index: 2;
+  z-index: 15;
+  transition: all 0.3s ease;
 }
+
+.remove-img-badge:hover { transform: scale(1.2); }
 
 .save-button {
   align-self: flex-end;
@@ -443,7 +472,7 @@ textarea[readonly] {
   background: transparent !important;
   border: none !important;
   font-family: inherit !important;
-  margin: 0 auto; /* Ensure center alignment */
+  margin: 0 auto;
 }
 
 .react-calendar__month-view__weekdays {
@@ -455,14 +484,13 @@ textarea[readonly] {
   color: var(--text);
 }
 
-/* Transform Weekdays to M T W T F S S */
 .react-calendar__month-view__weekdays__weekday abbr {
   text-decoration: none !important;
-  font-size: 0.9rem; /* Hide full text */
+  font-size: 0.9rem;
 }
 
 .react-calendar__month-view__weekdays__weekday abbr::first-letter {
-  font-size: 0.9rem; /* Show only first letter */
+  font-size: 0.9rem;
 }
 
 .react-calendar__tile {
@@ -530,7 +558,7 @@ textarea[readonly] {
   background: var(--modal-bg);
   color: var(--text);
   width: 100%;
-  max-width: 800px;
+  max-width: 900px; /* Slightly wider for scrapbook */
   padding: 80px;
   border-radius: 60px;
   position: relative;
@@ -582,26 +610,34 @@ textarea[readonly] {
   line-height: 1;
 }
 
-/* NEW: Image Gallery in View Modal */
+/* HIGH-END MODAL SCRAPBOOK GALLERY */
 .modal-image-gallery {
   display: flex;
-  gap: 15px;
-  margin-bottom: 30px;
+  gap: 30px;
+  margin: 40px 0;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .modal-image-gallery img {
-  width: 100%;
+  width: calc(50% - 15px); /* Grid layout */
   flex: 1;
-  aspect-ratio: 16/9;
+  min-width: 250px;
+  aspect-ratio: 1/1; /* Square scrapbook photos */
   object-fit: cover;
-  border-radius: 25px;
-  border: 1px solid var(--border-subtle);
-  transition: transform 0.3s ease;
+  padding: 15px 15px 50px 15px;
+  background: white;
+  box-shadow: 10px 15px 40px rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.4s ease;
 }
 
+.modal-image-gallery img:nth-child(odd) { transform: rotate(-2deg); }
+.modal-image-gallery img:nth-child(even) { transform: rotate(1.5deg); }
+
 .modal-image-gallery img:hover {
-  transform: scale(1.02);
+  transform: scale(1.05) rotate(0deg);
+  z-index: 5;
 }
 
 .modal-divider {
@@ -634,9 +670,8 @@ textarea[readonly] {
   textarea { padding-left: 25px; font-size: 1.2rem; }
   .save-button { width: 100%; justify-content: center; padding: 25px; }
   
-  /* Centering Calendar Wrapper and Content */
   .calendar-wrapper { 
-    padding: 60px 15px; /* Reduced side padding for symmetry */
+    padding: 60px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -645,7 +680,7 @@ textarea[readonly] {
   .calendar-header { padding-left: 0; text-align: center; }
 
   .react-calendar__tile { 
-    height: 80px !important; /* Smaller tiles for better fit */
+    height: 80px !important;
     padding: 10px !important;
     font-size: 1rem;
   }
@@ -653,13 +688,11 @@ textarea[readonly] {
   
   .entry-modal { padding: 60px 30px; border-radius: 40px; }
   .modal-note { font-size: 1.2rem; }
-  .auth-glass-card { padding: 40px 25px; border-radius: 35px; }
 
-  /* New Feature Mobile Adjustments */
   .modal-image-gallery { flex-direction: column; }
-  .image-upload-slot { width: 100px; height: 100px; }
+  .modal-image-gallery img { width: 100%; }
+  .image-upload-slot { width: 140px; height: 170px; }
 
-  /* FIXING OVERFLOW CUTOUTS ON MOBILE */
   .brand-layer { padding: 20px 30px; border-radius: 25px; }
   .brand-layer h1 {
     font-size: 1.6rem !important;
@@ -737,7 +770,6 @@ textarea[readonly] {
   font-weight: 900;
   font-size: 0.85rem;
   letter-spacing: 2px;
-  opacity: 1;
 }
 
 .confirm-buttons {
@@ -758,54 +790,10 @@ textarea[readonly] {
   transition: all 0.3s ease;
 }
 
-.confirm-btn.yes {
-  background: var(--red);
-  color: white;
-}
+.confirm-btn.yes { background: var(--red); color: white; }
+.confirm-btn.no { background: var(--text); color: var(--modal-bg); }
 
-.confirm-btn.no {
-  background: var(--text);
-  color: var(--modal-bg);
-}
-
-.confirm-btn:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.1);
-}
-
-.button-group {
-  display: flex;
-  gap: 20px;
-  align-self: flex-end;
-  width: 100%;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
-
-.reset-button {
-  background: transparent;
-  color: var(--text);
-  padding: 28px 40px;
-  border-radius: 24px;
-  border: 2px solid var(--btn-hover);
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  transition: all 0.3s ease;
-  opacity: 0.6;
-}
-
-.reset-button:hover {
-  opacity: 1;
-  border-color: var(--red);
-  color: var(--red);
-  background: rgba(231, 76, 60, 0.05);
-}
+.confirm-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
 /* HERO IMAGE OVERLAYS */
 .mood-card[style*="background-color: rgb(46, 204, 113)"] { 
@@ -826,16 +814,6 @@ textarea[readonly] {
 }
 
 /* 11. PREMIUM AUTH SYSTEM STYLES */
-.auth-page {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #ffafbd 0%, #c299ff 45%, #8e9eff 100%);
-  background-attachment: fixed;
-}
-
 .auth-glass-card {
   background: var(--modal-bg);
   backdrop-filter: blur(40px);
@@ -867,212 +845,54 @@ textarea[readonly] {
 }
 
 .auth-header h1 {
-  font-weight: 900;
-  font-size: 2.2rem;
-  letter-spacing: -1px;
-  margin-bottom: 10px;
-  color: var(--text);
+  font-weight: 900; font-size: 2.2rem; letter-spacing: -1px; margin-bottom: 10px; color: var(--text);
 }
 
 .auth-header p {
-  font-size: 0.9rem;
-  opacity: 0.6;
-  margin-bottom: 40px;
-  line-height: 1.6;
-  color: var(--text);
+  font-size: 0.9rem; opacity: 0.6; margin-bottom: 40px; line-height: 1.6; color: var(--text);
 }
 
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
+.auth-form { display: flex; flex-direction: column; gap: 15px; }
 
-.input-group {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.input-group svg {
-  position: absolute;
-  left: 20px;
-  opacity: 0.4;
-  color: var(--text);
-}
-
+.input-group { position: relative; display: flex; align-items: center; }
+.input-group svg { position: absolute; left: 20px; opacity: 0.4; color: var(--text); }
 .input-group input {
-  width: 100%;
-  padding: 22px 22px 22px 55px;
-  border-radius: 20px;
-  border: 2px solid transparent;
-  background: var(--btn-hover);
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--text);
-  transition: all 0.3s ease;
+  width: 100%; padding: 22px 22px 22px 55px; border-radius: 20px; border: 2px solid transparent;
+  background: var(--btn-hover); font-family: inherit; font-weight: 700; font-size: 1rem;
+  color: var(--text); transition: all 0.3s ease;
 }
-
-.input-group input:focus {
-  outline: none;
-  background: var(--modal-bg);
-  border-color: var(--text);
-}
+.input-group input:focus { outline: none; background: var(--modal-bg); border-color: var(--text); }
 
 .auth-main-btn {
-  background: var(--text);
-  color: var(--modal-bg);
-  padding: 22px;
-  border-radius: 20px;
-  border: none;
-  font-weight: 900;
-  letter-spacing: 2px;
-  cursor: pointer;
-  margin-top: 10px;
+  background: var(--text); color: var(--modal-bg); padding: 22px; border-radius: 20px;
+  border: none; font-weight: 900; letter-spacing: 2px; cursor: pointer; margin-top: 10px;
   transition: all 0.3s ease;
 }
 
-.auth-main-btn:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-}
-
-.auth-error-msg {
-  color: var(--red);
-  font-weight: 800;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin: 10px 0;
-}
+.auth-main-btn:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
 
 .auth-footer button {
-  background: none;
-  border: none;
-  margin-top: 30px;
-  font-weight: 800;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  opacity: 0.4;
-  cursor: pointer;
-  color: var(--text);
-  transition: opacity 0.3s;
+  background: none; border: none; margin-top: 30px; font-weight: 800; font-size: 0.75rem;
+  letter-spacing: 1px; opacity: 0.4; cursor: pointer; color: var(--text); transition: opacity 0.3s;
 }
-
 .auth-footer button:hover { opacity: 1; }
 
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-right: 15px;
-  border-right: 1px solid var(--border-subtle);
-}
+.user-profile { display: flex; align-items: center; gap: 12px; padding-right: 15px; border-right: 1px solid var(--border-subtle); }
+.user-initial { width: 32px; height: 32px; background: var(--text); color: var(--modal-bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 900; text-transform: uppercase; }
+.user-name { font-weight: 800; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text); }
+.logout-btn { color: var(--red) !important; }
 
-.user-initial {
-  width: 32px;
-  height: 32px;
-  background: var(--text);
-  color: var(--modal-bg);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.user-name {
-  font-weight: 800;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text);
-}
-
-.logout-btn {
-  color: var(--red) !important;
-}
-
-/* 12. CLOUD SYNC ENHANCEMENTS (New) */
-.save-button svg {
-  transition: transform 0.3s ease;
-}
-
-.save-button:active svg {
-  transform: rotate(20deg) scale(1.2);
-}
-
-.active-selection {
-  border: 10px solid white !important;
-  box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);
-}
-
-/* MOBILE ADJUSTMENTS FOR ADDITIONS */
-@media (max-width: 768px) {
-  .modal-actions { flex-direction: column; }
-  .action-btn { width: 100%; justify-content: center; }
-  .confirm-buttons { flex-direction: column; }
-  .button-group { flex-direction: column-reverse; }
-  .reset-button { width: 100%; justify-content: center; padding: 22px; }
-  .auth-glass-card { padding: 40px 25px; }
-}
+/* 12. CLOUD SYNC & SELECTION */
+.active-selection { border: 10px solid white !important; box-shadow: 0 0 50px rgba(255, 255, 255, 0.4); }
 
 /* 13. FOOTER STYLES */
 .app-footer {
-  width: 100vw;
-  padding: 100px 0 60px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  width: 100vw; padding: 100px 0 60px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
 }
-
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.made-with-love {
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: var(--text);
-  opacity: 0.6;
-  letter-spacing: 1px;
-  font-style: italic;
-}
-
+.made-with-love { font-size: 0.9rem; font-weight: 400; color: var(--text); opacity: 0.6; letter-spacing: 1px; font-style: italic; }
 .peace-text {
-  font-weight: 900;
-  font-size: clamp(2.5rem, 15vw, 10rem); 
-  color: var(--text);
-  letter-spacing: 0.8em; 
-  text-indent: 0.8em; 
-  margin: 0;
-  opacity: 0.1; 
-  text-transform: uppercase;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
-  width: 100%;
-  text-align: center;
+  font-weight: 900; font-size: clamp(2.5rem, 15vw, 10rem); color: var(--text); letter-spacing: 0.8em; 
+  text-indent: 0.8em; margin: 0; opacity: 0.1; text-transform: uppercase; pointer-events: none; transition: opacity 0.5s ease;
+  width: 100%; text-align: center;
 }
-
-.app-footer:hover .peace-text {
-  opacity: 0.2;
-}
-
-/* Final Specific Mobile Overrides for Peace */
-@media (max-width: 768px) {
-  .peace-text {
-    font-size: 2.2rem !important; 
-    letter-spacing: 0.3em !important;
-    text-indent: 0.3em !important;
-    opacity: 0.15; 
-  }
-}
+.app-footer:hover .peace-text { opacity: 0.2; }
